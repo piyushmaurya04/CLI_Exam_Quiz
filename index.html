@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CLI Exam Preparation Quiz</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="app-container">
+        <div id="login-screen" class="screen active">
+            <h1>CLI Exam Prep</h1>
+            <p>अभ्यास शुरू करने के लिए अपना नाम दर्ज करें</p>
+            <input type="text" id="username-input" placeholder="आपका नाम (Enter Name)">
+            <button onclick="loginUser()">शुरू करें (Start)</button>
+        </div>
+
+        <div id="dashboard-screen" class="screen hidden">
+            <header>
+                <h2>नमस्ते, <span id="display-name">User</span>!</h2>
+                <button class="profile-btn" onclick="showProfile()" title="My Profile"><i class="fas fa-user-circle"></i></button>
+            </header>
+            
+            <div class="category-list">
+                <h3>क्विज़ कैटेगरी चुनें (Select Category)</h3>
+                <div id="categories-container"></div>
+            </div>
+        </div>
+
+        <div id="selection-screen" class="screen hidden">
+            <h2>प्रश्नों की संख्या चुनें</h2>
+            <p>Category: <span id="sel-cat-name" style="font-weight:bold; color:#2563eb;"></span></p>
+            <p>आप कितने प्रश्नों का टेस्ट देना चाहते हैं?</p>
+            
+            <div class="number-grid">
+            </div>
+
+            <br>
+            <button class="back-btn" style="background:#777; margin-top: 20px;" onclick="showDashboard()">Cancel (रद्द करें)</button>
+        </div>
+
+        <div id="quiz-screen" class="screen hidden">
+            <div class="quiz-header">
+                <span id="quiz-category-title">Category Name</span>
+                <div class="timer-box">
+                    Time: <span id="timer">30</span>s
+                </div>
+                <button class="quit-btn" onclick="quitQuiz()" style="background: #dc2626; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer;">Quit (बाहर निकलें)</button>
+            </div>
+            
+            <div class="progress-bar">
+                <div id="progress-fill"></div>
+            </div>
+
+            <div class="question-container">
+                <h3 id="question-text">प्रश्न यहाँ आएगा?</h3>
+                <div id="options-container" class="options-grid">
+                    </div>
+            </div>
+
+            <div class="quiz-footer">
+                <span id="question-count">1 / 100</span>
+            </div>
+        </div>
+
+        <div id="result-screen" class="screen hidden">
+            <h2>परिणाम (Result)</h2>
+            <div class="score-card">
+                <p>Category: <span id="result-category"></span></p>
+                <div class="score-circle">
+                    <span id="score-text">0/0</span>
+                </div>
+                <p id="feedback-msg">Well Done!</p>
+            </div>
+            <button onclick="goToDashboard()">होम पर जाएं</button>
+        </div>
+
+        <div id="profile-screen" class="screen hidden">
+            <header>
+                <button class="back-btn" style="width: 50px; padding: 10px; display: flex; align-items: center; justify-content: center;" onclick="goToDashboard()"><i class="fas fa-arrow-left"></i></button>
+                <h2 style="flex: 1; text-align: center;">My Profile</h2>
+                <div style="width: 50px;"></div>
+            </header>
+            <div class="profile-info">
+                <div class="profile-header">
+                    <i class="fas fa-user-circle profile-icon"></i>
+                    <h3>User: <span id="profile-name"></span></h3>
+                </div>
+                <h4>आपका प्रदर्शन (Performance):</h4>
+                <div id="profile-stats">
+                </div>
+            </div>
+        </div>
+
+    </div>
+<script src="questions.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
