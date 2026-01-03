@@ -200,6 +200,27 @@ header h2 {
     box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3);
 }
 
+.logout-btn {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.logout-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.3);
+}
+
 .category-list h3 {
     color: var(--text);
     margin-bottom: 20px;

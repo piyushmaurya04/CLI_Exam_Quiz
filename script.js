@@ -402,3 +402,14 @@ function resetCategory(cat) {
         showProfile();
     }
 }
+
+function logout() {
+    currentUser = null;
+    currentCategory = null;
+    currentQuestions = [];
+    currentQuestionIndex = 0;
+    score = 0;
+    userAnswers = [];
+    showScreen(loginScreen);
+    document.getElementById('username-input').value = '';
+}
