@@ -9,6 +9,7 @@ let currentQuestionIndex = 0;
 let score = 0;
 let timer;
 let timeLeft = 30;
+let userAnswers = []; // Track user's selected answers
 
 // --- 2. DOM Elements ---
 const loginScreen = document.getElementById('login-screen');
@@ -125,6 +126,7 @@ function initializeQuiz(count) {
     
     currentQuestionIndex = 0;
     score = 0;
+    userAnswers = new Array(currentQuestions.length).fill(-1); // Initialize with -1 (no answer)
     
     document.getElementById('quiz-category-title').innerText = currentCategory;
     showScreen(quizScreen);
@@ -176,6 +178,9 @@ function selectAnswer(selectedIndex, correctIndex, btnElement) {
     const buttons = document.querySelectorAll('.options-grid button');
     buttons.forEach(b => b.onclick = null);
 
+    // Store the user's answer
+    userAnswers[currentQuestionIndex] = selectedIndex;
+
     if (selectedIndex === correctIndex) {
         btnElement.classList.add('correct');
         score++;
@@ -194,6 +199,7 @@ function showCorrectAnswerAndNext(correctIndex) {
     const buttons = document.querySelectorAll('.options-grid button');
     const qData = currentQuestions[currentQuestionIndex];
     
+    // User didn't select an answer (timeout), so answer remains -1
     if(buttons.length > 0) {
          buttons[qData.correct].classList.add('correct');
     }
@@ -231,7 +237,62 @@ function endQuiz() {
     }
     
     document.getElementById('feedback-msg').innerText = feedback;
+    
+    // Display question review
+    displayQuestionReview();
+    
     saveResult(currentCategory, score, currentQuestions.length);
+}
+
+function displayQuestionReview() {
+    const reviewContainer = document.getElementById('questions-review');
+    reviewContainer.innerHTML = '';
+    
+    currentQuestions.forEach((question, index) => {
+        const questionDiv = document.createElement('div');
+        questionDiv.className = 'question-review-item';
+        
+        const userAnswer = userAnswers[index];
+        const isCorrect = userAnswer === question.correct;
+        const isAnswered = userAnswer !== -1;
+        
+        questionDiv.innerHTML = `
+            <div class="question-header">
+                <span class="question-number">Q${index + 1}.</span>
+                <span class="question-text">${question.q}</span>
+                <span class="question-status ${isCorrect ? 'correct-status' : 'wrong-status'}">
+                    ${isCorrect ? '✓' : (isAnswered ? '✗' : '⏰')}
+                </span>
+            </div>
+            <div class="options-review">
+                ${question.options.map((option, optIndex) => {
+                    let optionClass = '';
+                    let optionLabel = '';
+                    
+                    if (optIndex === question.correct) {
+                        optionClass = 'correct-option';
+                        optionLabel = '(Correct)';
+                    }
+                    
+                    if (isAnswered && optIndex === userAnswer) {
+                        if (isCorrect) {
+                            optionClass = 'user-correct-option';
+                            optionLabel = '(Your Answer - Correct)';
+                        } else {
+                            optionClass = 'user-wrong-option';
+                            optionLabel = '(Your Answer - Wrong)';
+                        }
+                    }
+                    
+                    return `<div class="option-review ${optionClass}">
+                        ${option} ${optionLabel}
+                    </div>`;
+                }).join('')}
+            </div>
+        `;
+        
+        reviewContainer.appendChild(questionDiv);
+    });
 }
 
 function saveResult(category, score, total) {
