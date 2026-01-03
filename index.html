@@ -13,33 +13,35 @@
     <div class="app-container">
         <div id="login-screen" class="screen active">
             <h1>CLI Exam Prep</h1>
-            <p>अभ्यास शुरू करने के लिए अपना नाम दर्ज करें</p>
-            <input type="text" id="username-input" placeholder="आपका नाम (Enter Name)">
-            <button onclick="loginUser()">शुरू करें (Start)</button>
+            <p>Enter your name to start the practice</p>
+            <input type="text" id="username-input" placeholder="Your Name">
+            <button onclick="loginUser()">Start</button>
         </div>
 
         <div id="dashboard-screen" class="screen hidden">
             <header>
-                <h2>नमस्ते, <span id="display-name">User</span>!</h2>
+                <h2>Hello, <span id="display-name">User</span>!</h2>
                 <button class="profile-btn" onclick="showProfile()" title="My Profile"><i class="fas fa-user-circle"></i></button>
             </header>
             
             <div class="category-list">
-                <h3>क्विज़ कैटेगरी चुनें (Select Category)</h3>
+                <h3>Select Quiz Category</h3>
                 <div id="categories-container"></div>
             </div>
+
+            <footer class="dashboard-footer">
+                <p>This Website is Developed by Piyush Maurya | <a href="https://piyushmaurya-portfolio.netlify.app/" target="_blank" rel="noopener noreferrer">Click here to Contact</a></p>
+            </footer>
         </div>
 
         <div id="selection-screen" class="screen hidden">
-            <h2>प्रश्नों की संख्या चुनें</h2>
+            <button class="selection-back-btn" onclick="showDashboard()" title="Go Back"><i class="fas fa-arrow-left"></i></button>
+            <h2>Select Number of Questions</h2>
             <p>Category: <span id="sel-cat-name" style="font-weight:bold; color:#2563eb;"></span></p>
-            <p>आप कितने प्रश्नों का टेस्ट देना चाहते हैं?</p>
+            <p>How many questions would you like to attempt?</p>
             
             <div class="number-grid">
             </div>
-
-            <br>
-            <button class="back-btn" style="background:#777; margin-top: 20px;" onclick="showDashboard()">Cancel (रद्द करें)</button>
         </div>
 
         <div id="quiz-screen" class="screen hidden">
@@ -48,7 +50,7 @@
                 <div class="timer-box">
                     Time: <span id="timer">30</span>s
                 </div>
-                <button class="quit-btn" onclick="quitQuiz()" style="background: #dc2626; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer;">Quit (बाहर निकलें)</button>
+                <button class="quit-btn" onclick="quitQuiz()" style="background: #dc2626; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer;">Quit</button>
             </div>
             
             <div class="progress-bar">
@@ -56,7 +58,7 @@
             </div>
 
             <div class="question-container">
-                <h3 id="question-text">प्रश्न यहाँ आएगा?</h3>
+                <h3 id="question-text">Question will appear here?</h3>
                 <div id="options-container" class="options-grid">
                     </div>
             </div>
@@ -67,7 +69,7 @@
         </div>
 
         <div id="result-screen" class="screen hidden">
-            <h2>परिणाम (Result)</h2>
+            <h2>Results</h2>
             <div class="score-card">
                 <p>Category: <span id="result-category"></span></p>
                 <div class="score-circle">
@@ -77,13 +79,13 @@
             </div>
             
             <div class="review-section">
-                <h3>प्रश्नों की समीक्षा (Question Review)</h3>
+                <h3>Question Review</h3>
                 <div id="questions-review" class="questions-review">
                     <!-- Questions will be displayed here -->
                 </div>
             </div>
             
-            <button onclick="goToDashboard()">होम पर जाएं</button>
+            <button onclick="goToDashboard()">Go to Home</button>
         </div>
 
         <div id="profile-screen" class="screen hidden">
@@ -97,7 +99,7 @@
                     <i class="fas fa-user-circle profile-icon"></i>
                     <h3>User: <span id="profile-name"></span></h3>
                 </div>
-                <h4>आपका प्रदर्शन (Performance):</h4>
+                <h4>Your Performance:</h4>
                 <div id="profile-stats">
                 </div>
             </div>

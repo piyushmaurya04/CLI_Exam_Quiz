@@ -49,7 +49,7 @@ function loginUser() {
         localStorage.setItem('cli_user_data', JSON.stringify(data));
         showDashboard();
     } else {
-        alert("कृपया अपना नाम दर्ज करें!");
+        alert("Please enter your name!");
     }
 }
 
@@ -100,7 +100,7 @@ function showSelectionScreen(category) {
     options.forEach(num => {
         if (num <= totalQuestions) {
             const btn = document.createElement('button');
-            btn.textContent = `${num} प्रश्न`;
+            btn.textContent = `${num} Questions`;
             btn.onclick = () => initializeQuiz(num);
             numberGrid.appendChild(btn);
         }
@@ -108,7 +108,7 @@ function showSelectionScreen(category) {
     
     // Always add "All" button
     const allBtn = document.createElement('button');
-    allBtn.textContent = `सभी (All) - ${totalQuestions}`;
+    allBtn.textContent = `All - ${totalQuestions}`;
     allBtn.onclick = () => initializeQuiz('all');
     numberGrid.appendChild(allBtn);
     
@@ -117,7 +117,7 @@ function showSelectionScreen(category) {
     customSection.className = 'custom-input-section';
     
     const inputLabel = document.createElement('label');
-    inputLabel.textContent = 'या कस्टम संख्या डालें (Or Enter Custom):';
+    inputLabel.textContent = 'Or Enter Custom Number:';
     inputLabel.htmlFor = 'custom-count-input';
     
     const inputField = document.createElement('input');
@@ -133,7 +133,7 @@ function showSelectionScreen(category) {
     });
     
     const customBtn = document.createElement('button');
-    customBtn.textContent = 'शुरू करें (Start)';
+    customBtn.textContent = 'Start';
     customBtn.className = 'custom-submit-btn';
     customBtn.onclick = () => handleCustomInput(totalQuestions);
     
@@ -152,12 +152,12 @@ function handleCustomInput(totalQuestions) {
     
     // Validate input
     if (isNaN(count) || count < 1) {
-        alert(`कृपया 1 से ${totalQuestions} के बीच एक मान्य संख्या दर्ज करें। (Please enter a valid number between 1 and ${totalQuestions})`);
+        alert(`Please enter a valid number between 1 and ${totalQuestions}`);
         return;
     }
     
     if (count > totalQuestions) {
-        alert(`केवल ${totalQuestions} प्रश्न उपलब्ध हैं। (Only ${totalQuestions} questions are available.)`);
+        alert(`Only ${totalQuestions} questions are available.`);
         return;
     }
     
@@ -266,7 +266,7 @@ function showCorrectAnswerAndNext(correctIndex) {
 }
 
 function quitQuiz() {
-    if (confirm('क्या आप क्विज़ छोड़ना चाहते हैं? आपका प्रदर्शन सहेजा नहीं जाएगा।\n\nAre you sure you want to quit? Your score will not be saved.')) {
+    if (confirm('Are you sure you want to quit? Your score will not be saved.')) {
         clearInterval(timer);
         showDashboard();
     }
@@ -395,7 +395,7 @@ function showProfile() {
 }
 
 function resetCategory(cat) {
-    if(confirm(`क्या आप ${cat} का रिजल्ट मिटाना चाहते हैं?`)) {
+    if(confirm(`Are you sure you want to delete the results for ${cat}?`)) {
         let data = JSON.parse(localStorage.getItem('cli_user_data'));
         delete data.results[cat];
         localStorage.setItem('cli_user_data', JSON.stringify(data));
