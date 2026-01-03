@@ -69,7 +69,12 @@ function showDashboard() {
         const btn = document.createElement('div');
         btn.className = 'category-card';
         const totalQ = quizData[cat].length;
-        btn.innerHTML = `<span>${cat} <small>(${totalQ} Qs)</small></span> <span>➤</span>`;
+        
+        // Add 'New !' badge for 'CLI Practise 1' category
+        const isNewCategory = cat === 'CLI Practise 1';
+        const badge = isNewCategory ? '<span class="new-badge">New !</span>' : '';
+        
+        btn.innerHTML = `<span>${cat} <small>(${totalQ} Qs)</small></span> ${badge}<span>➤</span>`;
         btn.onclick = () => showSelectionScreen(cat);
         catContainer.appendChild(btn);
     });
@@ -107,7 +112,57 @@ function showSelectionScreen(category) {
     allBtn.onclick = () => initializeQuiz('all');
     numberGrid.appendChild(allBtn);
     
+    // Add custom input section
+    const customSection = document.createElement('div');
+    customSection.className = 'custom-input-section';
+    
+    const inputLabel = document.createElement('label');
+    inputLabel.textContent = 'या कस्टम संख्या डालें (Or Enter Custom):';
+    inputLabel.htmlFor = 'custom-count-input';
+    
+    const inputField = document.createElement('input');
+    inputField.type = 'number';
+    inputField.id = 'custom-count-input';
+    inputField.placeholder = `1 - ${totalQuestions}`;
+    inputField.min = '1';
+    inputField.max = totalQuestions;
+    inputField.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            handleCustomInput(totalQuestions);
+        }
+    });
+    
+    const customBtn = document.createElement('button');
+    customBtn.textContent = 'शुरू करें (Start)';
+    customBtn.className = 'custom-submit-btn';
+    customBtn.onclick = () => handleCustomInput(totalQuestions);
+    
+    customSection.appendChild(inputLabel);
+    customSection.appendChild(inputField);
+    customSection.appendChild(customBtn);
+    
+    numberGrid.appendChild(customSection);
+    
     showScreen(selectionScreen);
+}
+
+function handleCustomInput(totalQuestions) {
+    const input = document.getElementById('custom-count-input');
+    const count = parseInt(input.value);
+    
+    // Validate input
+    if (isNaN(count) || count < 1) {
+        alert(`कृपया 1 से ${totalQuestions} के बीच एक मान्य संख्या दर्ज करें। (Please enter a valid number between 1 and ${totalQuestions})`);
+        return;
+    }
+    
+    if (count > totalQuestions) {
+        alert(`केवल ${totalQuestions} प्रश्न उपलब्ध हैं। (Only ${totalQuestions} questions are available.)`);
+        return;
+    }
+    
+    // Initialize quiz with custom count
+    initializeQuiz(count);
 }
 
 // --- 8. Quiz Logic ---
